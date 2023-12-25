@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { CompanyLinks } from '@/utils/consts/nav-links/company'
 import Logo from '@/components/logo'
@@ -13,6 +14,8 @@ const NavBar = (props: Props) => {
   const handleOnClick = () => setIsActive(!isActive)
 
   const activeClass = isActive && 'active'
+
+  const pathname = usePathname()
 
   return (
     <div className="container mx-auto bg-white mdl:bg-white/90 dark:bg-bgPrimary mdl:dark:bg-bgPrimary/90 mdl:backdrop-blur-sm">
@@ -40,13 +43,10 @@ const NavBar = (props: Props) => {
             {CompanyLinks.map((clink, index) => (
               <Link
                 key={index}
-                to={clink.path}
-                className={({ isActive }) =>
-                  cn({
-                    'NavLink-Active': isActive,
-                    NavLink: !isActive,
-                  })
-                }
+                href={clink.path}
+                className={`${clink.title} ${
+                  pathname === '/' ? 'NavLink-Active' : 'NavLink'
+                }`}
               >
                 {clink.title}
               </Link>
@@ -58,13 +58,10 @@ const NavBar = (props: Props) => {
             />
 
             <Link
-              to={'/libraries'}
-              className={({ isActive }) =>
-                cn({
-                  'NavLink-Active': isActive,
-                  'NavLink w-max': !isActive,
-                })
-              }
+              href="/libraries"
+              className={`${
+                pathname === '/' ? 'NavLink-Active' : 'NavLink w-max'
+              }`}
             >
               Explore Libraries
             </Link>
@@ -80,13 +77,10 @@ const NavBar = (props: Props) => {
 
             <div className="flex flex-col items-center gap-4 sm:gap-5 mdl:flex-row">
               <Link
-                to={'/login'}
-                className={({ isActive }) =>
-                  cn({
-                    'NavLink-Active': isActive,
-                    'NavLink w-max': !isActive,
-                  })
-                }
+                href="/login"
+                className={`${
+                  pathname === '/' ? 'NavLink-Active' : 'NavLink w-max'
+                }`}
               >
                 Log In
               </Link>
