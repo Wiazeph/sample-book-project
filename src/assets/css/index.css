@@ -130,8 +130,5 @@
   .Ham-Menu.active ~ .Menu {
     transform: translateX(-16px);
   }
-  .Ham-Menu.active ~ .Menu {
-    @apply shadow-md dark:shadow-border;
-  }
   /* Hamburger Menu */
 }

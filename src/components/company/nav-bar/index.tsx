@@ -41,7 +41,7 @@ const NavBar = (props: Props) => {
           />
         </svg>
 
-        <div className="Menu w-64 sm:w-72 md:w-80 h-[calc(100vh-64px)] absolute top-16 flex flex-col items-center justify-center gap-10 bg-white mdl:bg-transparent -translate-x-[calc(100%+16px)] transition-transform duration-500 ease-in-out border-r mdl:w-full mdl:h-auto mdl:static mdl:top-0 mdl:-translate-x-0 mdl:flex-row mdl:justify-between mdl:border-none mdl:shadow-none">
+        <div className="Menu w-64 sm:w-72 md:w-80 h-[calc(100vh-64px)] absolute top-16 flex flex-col items-center justify-center gap-10 bg-white dark:bg-background mdl:bg-transparent -translate-x-[calc(100%+16px)] transition-transform duration-500 ease-in-out border-r mdl:w-full mdl:h-auto mdl:static mdl:top-0 mdl:-translate-x-0 mdl:flex-row mdl:justify-between mdl:border-none">
           <div className="flex flex-col items-center gap-4 sm:gap-5 mdl:flex-row">
             {CompanyLinks.map((clink, index) => (
               <Link
@@ -63,10 +63,13 @@ const NavBar = (props: Props) => {
             <Link
               href="/libraries"
               className={
-                pathname === '/libraries' ? 'NavLink-Active' : 'NavLink w-max'
+                pathname === '/libraries'
+                  ? 'NavLink-Active'
+                  : 'NavLink w-max lg:flex lg:gap-x-1.5'
               }
             >
-              Explore Libraries
+              <span className="hidden lg:inline">Explore</span>
+              <span>Libraries</span>
             </Link>
           </div>
 
