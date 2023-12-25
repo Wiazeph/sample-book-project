@@ -52,7 +52,7 @@ const Appearance = (props: Props) => {
         defaultValue={theme}
         value={theme}
       >
-        <SelectTrigger className="h-9 flex items-center gap-x-2 px-2 border rounded-md bg-none! hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors">
+        <SelectTrigger className="h-9 flex items-center gap-x-2 px-2 border rounded-md bg-none! hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
           {theme === 'Light' && <Sun className="Icon w-4 h-4" />}
 
           {theme === 'Dark' && <Moon className="Icon w-4 h-4" />}
@@ -83,7 +83,7 @@ const Appearance = (props: Props) => {
       </Select>
 
       <Select>
-        <SelectTrigger className="h-9 flex items-center gap-x-2 px-2 border rounded-md hover:bg-slate-100 dark:hover:bg-slate-800/80 transition-colors">
+        <SelectTrigger className="h-9 flex items-center gap-x-2 px-2 border rounded-md bg-none! hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
           <Languages className="Icon w-4 h-4" />
 
           {props.separator && <Separator orientation="vertical" />}
