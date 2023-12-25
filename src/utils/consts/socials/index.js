@@ -1,20 +1,20 @@
-import { FaXTwitter, FaInstagram, FaGithub, FaLinkedin } from 'lucide-react'
+import { Twitter, Instagram, Github, Linkedin } from 'lucide-react'
 
 export const SocialLinks = [
   {
     path: '#',
-    icon: <FaXTwitter />,
+    icon: <Twitter />,
   },
   {
     path: '#',
-    icon: <FaInstagram />,
+    icon: <Instagram />,
   },
   {
     path: '#',
-    icon: <FaGithub />,
+    icon: <Github />,
   },
   {
     path: '#',
-    icon: <FaLinkedin />,
+    icon: <Linkedin />,
   },
 ]

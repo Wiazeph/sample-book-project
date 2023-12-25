@@ -1,18 +1,18 @@
-import React from 'react'
-import { useState } from 'react'
+// shadcn/ui
+import { Separator } from '@/components/ui/separator'
+// shadcn/ui
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
-import { CompanyLinks } from '@/utils/consts/nav-links/company'
 import Logo from '@/components/logo'
+import { CompanyLinks } from '@/utils/consts/nav-links/company'
+import Appearance from '@/components/ui/appearance'
 
 type Props = {}
 
 const NavBar = (props: Props) => {
   const [isActive, setIsActive] = useState(false)
-
   const handleOnClick = () => setIsActive(!isActive)
-
   const activeClass = isActive && 'active'
 
   const pathname = usePathname()
@@ -85,7 +85,7 @@ const NavBar = (props: Props) => {
                 Log In
               </Link>
 
-              <Button link="/signup" title="Get Started" />
+              {/* <Button link="/signup" title="Get Started" /> */}
             </div>
           </div>
         </div>
