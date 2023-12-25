@@ -1,7 +1,10 @@
+'use client'
+
 // shadcn/ui
 import { Separator } from '@/components/ui/separator'
 // shadcn/ui
-import React, { useState } from 'react'
+import React from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Logo from '@/components/logo'

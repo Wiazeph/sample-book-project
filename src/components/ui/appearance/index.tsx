@@ -9,15 +9,15 @@ import {
 } from '@/components/ui/select'
 // shadcn/ui
 import { useEffect } from 'react'
+import { Sun, Moon, Laptop2, Languages } from 'lucide-react'
+import { useThemeStore } from '@/stores/theme'
 
-import { MdOutlineLightMode } from 'react-icons/md'
-import { FaRegMoon } from 'react-icons/fa'
-import { GrSystem } from 'react-icons/gr'
-import { IoLanguage } from 'react-icons/io5'
-import PropTypes from 'prop-types'
-import { useThemeStore } from '~/stores/theme'
+type Props = {
+  separator?: boolean
+  title?: boolean
+}
 
-const Appearance = ({ separator, title }) => {
+const Appearance = (props: Props) => {
   const theme = useThemeStore((state) => state.theme)
 
   const element = document.documentElement
@@ -41,7 +41,7 @@ const Appearance = ({ separator, title }) => {
     }
   }, [theme, darkQuery.matches])
 
-  const handleThemeChange = (value) => {
+  const handleThemeChange = (value: string) => {
     useThemeStore.setState({ theme: value })
   }
 
@@ -53,30 +53,30 @@ const Appearance = ({ separator, title }) => {
         value={theme}
       >
         <SelectTrigger className="h-9 flex items-center gap-x-2 px-2 border rounded-md bg-none! hover:bg-zinc-100 dark:hover:bg-zinc-800/80 transition-colors">
-          {theme === 'Light' && <MdOutlineLightMode className="Icon w-4 h-4" />}
+          {theme === 'Light' && <Sun className="Icon w-4 h-4" />}
 
-          {theme === 'Dark' && <FaRegMoon className="Icon w-3.5 h-3.5" />}
+          {theme === 'Dark' && <Moon className="Icon w-3.5 h-3.5" />}
 
-          {theme === 'System' && <GrSystem className="Icon w-3.5 h-3.5" />}
+          {theme === 'System' && <Laptop2 className="Icon w-3.5 h-3.5" />}
 
-          {separator && <Separator orientation="vertical" />}
+          {props.separator && <Separator orientation="vertical" />}
 
-          {title && <div>{theme}</div>}
+          {props.title && <div>{theme}</div>}
         </SelectTrigger>
 
         <SelectContent>
           <SelectItem value="Light">
-            <MdOutlineLightMode className="Icon w-4 h-4" />
+            <Sun className="Icon w-4 h-4" />
             <div className="mb-0.5">Light</div>
           </SelectItem>
 
           <SelectItem value="Dark">
-            <FaRegMoon className="Icon w-3.5 h-3.5" />
+            <Moon className="Icon w-3.5 h-3.5" />
             <div className="mb-0.5">Dark</div>
           </SelectItem>
 
           <SelectItem value="System">
-            <GrSystem className="Icon w-3.5 h-3.5" />
+            <Laptop2 className="Icon w-3.5 h-3.5" />
             <div className="mb-0.5">System</div>
           </SelectItem>
         </SelectContent>
@@ -84,11 +84,11 @@ const Appearance = ({ separator, title }) => {
 
       <Select>
         <SelectTrigger className="h-9 flex items-center gap-x-2 px-2 border rounded-md hover:bg-zinc-100 dark:hover:bg-zinc-800/80 transition-colors">
-          <IoLanguage asChild className="Icon w-4 h-4" />
+          <Languages className="Icon w-4 h-4" />
 
-          {separator && <Separator orientation="vertical" />}
+          {props.separator && <Separator orientation="vertical" />}
 
-          {title && <SelectValue placeholder="Language" />}
+          {props.title && <SelectValue placeholder="Language" />}
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="English">English</SelectItem>
@@ -97,11 +97,6 @@ const Appearance = ({ separator, title }) => {
       </Select>
     </div>
   )
-}
-
-Appearance.propTypes = {
-  separator: PropTypes.bool.isRequired,
-  title: PropTypes.bool.isRequired,
 }
 
 export default Appearance
