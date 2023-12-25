@@ -1,5 +1,5 @@
-import CompanyMainLayout from '@/layouts/company/main'
+import HomeComponent from '@/components/pages/company/home'
 
 export default function Home() {
-  return <CompanyMainLayout />
+  return <HomeComponent />
 }

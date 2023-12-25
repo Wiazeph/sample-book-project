@@ -26,7 +26,11 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        {children}
+        <header className="Header">CompanyMainLayout</header>
+
+        <main className="Main">{children}</main>
+
+        <footer className="Footer">CompanyMainLayout</footer>
       </body>
     </html>
   )
