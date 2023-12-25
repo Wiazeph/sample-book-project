@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'min-h-screen bg-background text-foreground font-sans antialiased flex flex-col gap-y-16 sm:gap-y-20 md:gap-y-24 lg:gap-y-28 xl:gap-y-32',
+          'min-h-screen bg-background text-foreground font-sans antialiased flex flex-col gap-y-12 sm:gap-y-16 md:gap-y-20 lg:gap-y-24 xl:gap-y-28',
           fontSans.variable
         )}
       >
