@@ -1,3 +1,137 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* shadcn/ui */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: 220 8.9% 46.1%;
+
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 0 0% 8%;
+    --foreground: 210 20% 98%;
+
+    --card: 0 0% 9%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 0 0% 9%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 210 20% 98%;
+    --primary-foreground: 220.9 39.3% 11%;
+
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 217.9 10.6% 64.9%;
+
+    --accent: 240 4% 16%;
+    --accent-foreground: 210 20% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 216 12.2% 83.9%;
+  }
+}
+/* shadcn/ui */
+
+@layer components {
+  /* Navigation Links */
+  .NavLink {
+    @apply hover:text-slate-500 transition-colors;
+  }
+  .NavLink-Active {
+    @apply flex items-center text-slate-800 hover:text-inherit dark:hover:text-slate-600 transition-colors;
+  }
+  /* Navigation Links */
+}
+
+@layer utilities {
+  /* Hamburger Menu */
+  .Hamburger-Menu {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 400ms;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  .Menu-Rotate.active {
+    transform: rotate(45deg);
+  }
+  .line {
+    fill: none;
+    transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+    stroke: currentColor;
+    stroke-width: 5.5;
+    stroke-linecap: round;
+  }
+  .Ham-Menu .top {
+    stroke-dasharray: 40 160;
+  }
+  .Ham-Menu .middle {
+    stroke-dasharray: 40 142;
+    transform-origin: 50%;
+    transition: transform 400ms;
+  }
+  .Ham-Menu .bottom {
+    stroke-dasharray: 40 85;
+    transform-origin: 50%;
+    transition: transform 400ms, stroke-dashoffset 400ms;
+  }
+  .Ham-Menu.active .top {
+    stroke-dashoffset: -64px;
+  }
+  .Ham-Menu.active .middle {
+    stroke-dashoffset: 0;
+    transform: rotate(90deg);
+  }
+  .Ham-Menu.active .bottom {
+    stroke-dashoffset: -64px;
+  }
+  .Ham-Menu.active ~ .Menu {
+    transform: translateX(-16px);
+  }
+  .Ham-Menu.active ~ .Menu {
+    @apply shadow-md dark:shadow-border;
+  }
+  /* Hamburger Menu */
+}

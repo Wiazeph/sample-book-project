@@ -18,14 +18,52 @@ module.exports = {
   ],
   prefix: '',
   theme: {
+    // Custom Values
     container: {
       center: true,
-      padding: '2rem',
+      padding: {
+        DEFAULT: '1rem',
+        sm: '1.5rem',
+        md: '2rem',
+        mdl: '2.5rem',
+        lg: '3rem',
+        lgx: '3.5rem',
+        xl: '4rem',
+        xl2: '4.5rem',
+      },
+
       screens: {
-        '2xl': '1400px',
+        mdl: '896px',
+        lg: '1024px',
+        lgx: '1152px',
+        xl: '1280px',
+        xl2: '1408px',
       },
     },
+    // Custom Values
+
     extend: {
+      // Custom Values
+      spacing: {
+        18: '4.5rem',
+        58: '14.5rem',
+        62: '15.5rem',
+        66: '16.5rem',
+        68: '17rem',
+      },
+
+      screens: {
+        // -128+
+        // md: '768px',
+        mdl: '896px',
+        // lg: '1024px',
+        lgx: '1152px',
+        // xl: '1280px',
+        xl2: '1408px',
+        // 2xl: '1536px',
+      },
+      // Custom Values
+
       // Next.js
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -38,6 +76,10 @@ module.exports = {
         sans: ['var(--font-sans)', ...fontFamily.sans],
       },
       colors: {
+        // Custom Values
+        bgPrimary: '#141414',
+        // Custom Values
+
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

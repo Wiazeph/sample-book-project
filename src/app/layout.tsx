@@ -23,7 +23,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          'min-h-screen bg-background font-sans antialiased flex flex-col gap-y-16 sm:gap-y-20 md:gap-y-24 lg:gap-y-28 xl:gap-y-32',
+          'min-h-screen bg-background text-foreground font-sans antialiased flex flex-col gap-y-16 sm:gap-y-20 md:gap-y-24 lg:gap-y-28 xl:gap-y-32',
           fontSans.variable
         )}
       >

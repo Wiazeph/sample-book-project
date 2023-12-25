@@ -47,9 +47,9 @@ const NavBar = (props: Props) => {
               <Link
                 key={index}
                 href={clink.path}
-                className={`${clink.title} ${
-                  pathname === '/' ? 'NavLink-Active' : 'NavLink'
-                }`}
+                className={
+                  pathname === clink.path ? 'NavLink-Active' : 'NavLink'
+                }
               >
                 {clink.title}
               </Link>
@@ -62,9 +62,9 @@ const NavBar = (props: Props) => {
 
             <Link
               href="/libraries"
-              className={`${
-                pathname === '/' ? 'NavLink-Active' : 'NavLink w-max'
-              }`}
+              className={
+                pathname === '/libraries' ? 'NavLink-Active' : 'NavLink w-max'
+              }
             >
               Explore Libraries
             </Link>
@@ -79,12 +79,7 @@ const NavBar = (props: Props) => {
             />
 
             <div className="flex flex-col items-center gap-4 sm:gap-5 mdl:flex-row">
-              <Link
-                href="/login"
-                className={`${
-                  pathname === '/' ? 'NavLink-Active' : 'NavLink w-max'
-                }`}
-              >
+              <Link href="/login" className="NavLink w-max">
                 Log In
               </Link>
 
