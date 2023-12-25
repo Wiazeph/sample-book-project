@@ -3,18 +3,18 @@ import { Twitter, Instagram, Github, Linkedin } from 'lucide-react'
 export const SocialLinks = [
   {
     path: '#',
-    icon: <Twitter />,
+    icon: <Twitter size={20} />,
   },
   {
     path: '#',
-    icon: <Instagram />,
+    icon: <Instagram size={20} />,
   },
   {
     path: '#',
-    icon: <Github />,
+    icon: <Github size={20} />,
   },
   {
     path: '#',
-    icon: <Linkedin />,
+    icon: <Linkedin size={20} />,
   },
 ]

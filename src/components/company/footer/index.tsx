@@ -9,6 +9,7 @@ import { ProductLinks } from '@/utils/consts/nav-links/product'
 import { LegalLinks } from '@/utils/consts/nav-links/legal'
 import LinkLists from './link-lists'
 import Logo from '@/components/logo'
+import Socials from '@/components/socials'
 import Appearance from '@/components/ui/appearance'
 
 type Props = {}
@@ -23,6 +24,8 @@ const Footer = (props: Props) => {
           <Logo />
 
           <div className="">Description</div>
+
+          <Socials />
         </div>
 
         <div className="flex flex-wrap gap-x-10 sm:gap-x-14 md:gap-x-20 lg:gap-x-28 gap-y-10">
