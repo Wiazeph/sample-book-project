@@ -75,10 +75,10 @@
 @layer components {
   /* Navigation Links */
   .NavLink {
-    @apply hover:text-slate-500 transition-colors;
+    @apply hover:text-slate-400 transition-colors;
   }
   .NavLink-Active {
-    @apply flex items-center text-slate-800 hover:text-inherit dark:hover:text-slate-600 transition-colors;
+    @apply flex items-center text-slate-400 hover:text-inherit dark:hover:text-slate-600 transition-colors;
   }
   /* Navigation Links */
 }
