@@ -45,6 +45,17 @@ const Appearance = (props: Props) => {
     useThemeStore.setState({ theme: value })
   }
 
+  const getThemeIcon = () => {
+    switch (theme) {
+      case 'Dark':
+        return <Sun className="Icon w-4 h-4" />
+      case 'Light':
+        return <Moon className="Icon w-4 h-4" />
+      case 'System':
+        return <Laptop2 className="Icon w-4 h-4" />
+    }
+  }
+
   return (
     <div className="Appearance flex gap-x-2 text-xs leading-3">
       <Select
@@ -53,11 +64,7 @@ const Appearance = (props: Props) => {
         value={theme || undefined}
       >
         <SelectTrigger className="h-9 flex items-center gap-x-2 px-2 border rounded-md bg-none! hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
-          {theme === 'Light' && <Sun className="Icon w-4 h-4" />}
-
-          {theme === 'Dark' && <Moon className="Icon w-4 h-4" />}
-
-          {theme === 'System' && <Laptop2 className="Icon w-4 h-4" />}
+          {getThemeIcon()}
 
           {props.separator && <Separator orientation="vertical" />}
 
