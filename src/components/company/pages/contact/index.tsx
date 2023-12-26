@@ -5,7 +5,7 @@ type Props = {}
 const ContactComponent = (props: Props) => {
   return (
     <div className="Contact">
-      <div className="container mx-auto">
+      <div className="container">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam ea at
         eveniet repellat quos dolores, quo reiciendis sit quod consequuntur,
         iste illum. Vitae, quibusdam distinctio. Neque sint id aspernatur fuga!

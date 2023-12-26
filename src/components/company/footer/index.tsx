@@ -16,7 +16,7 @@ type Props = {}
 
 const Footer = (props: Props) => {
   return (
-    <div className="container mx-auto">
+    <div className="container">
       <Separator />
 
       <div className="py-6 sm:py-7 md:py-8 mdl:py-10 lg:py-12 lgx:py-14 xl:py-16 flex flex-wrap gap-x-16 gap-y-10 justify-between text-sm sm:text-base">

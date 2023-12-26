@@ -3,13 +3,15 @@
 // shadcn/ui
 import { Separator } from '@/components/ui/separator'
 // shadcn/ui
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Logo from '@/components/logo'
 import { CompanyLinks } from '@/utils/consts/nav-links/company'
 import Appearance from '@/components/ui/appearance'
+import { useWindowScroll, useWindowSize } from '@uidotdev/usehooks'
+import { cn } from '@/lib/utils'
 
 type Props = {}
 
@@ -20,9 +22,29 @@ const NavBar = (props: Props) => {
 
   const pathname = usePathname()
 
+  const [{ y }] = useWindowScroll()
+  const { width } = useWindowSize()
+
+  const isLogoShow = useMemo(
+    () => (width && width < 896 ? <Logo /> : null),
+    [width]
+  )
+
+  const isScrolled = useMemo(
+    () => (width && width < 896 ? y !== null && y > 50 : y !== null && y > 80),
+    [width, y]
+  )
+
+  const classes = useMemo(
+    () => ({
+      parent: cn('bg-background', isScrolled && 'border-b'),
+    }),
+    [isScrolled]
+  )
+
   return (
-    <div className="container mx-auto bg-white mdl:bg-white/90 dark:bg-bgPrimary mdl:dark:bg-bgPrimary/90 mdl:backdrop-blur-sm">
-      <div className="h-16 flex items-center justify-between mdl:justify-start gap-x-10 overflow-hidden border-b">
+    <div className={classes.parent}>
+      <div className="container h-16 flex items-center justify-between mdl:justify-start gap-x-10 overflow-hidden">
         <Logo />
 
         <svg
@@ -41,7 +63,9 @@ const NavBar = (props: Props) => {
           />
         </svg>
 
-        <div className="Menu w-64 sm:w-72 md:w-80 h-[calc(100vh-64px)] absolute top-16 flex flex-col items-center justify-center gap-10 bg-white dark:bg-background mdl:bg-transparent -translate-x-[calc(100%+16px)] transition-transform duration-500 ease-in-out border-r mdl:w-full mdl:h-auto mdl:static mdl:top-0 mdl:-translate-x-0 mdl:flex-row mdl:justify-between mdl:border-none">
+        <div className="Menu w-64 sm:w-72 md:w-80 h-dvh absolute top-0 flex flex-col items-center justify-center gap-10 bg-background mdl:bg-transparent -translate-x-[calc(100%+16px)] transition-transform duration-500 ease-in-out border-r mdl:w-full mdl:h-auto mdl:static mdl:top-0 mdl:-translate-x-0 mdl:flex-row mdl:justify-between mdl:border-none">
+          {isLogoShow}
+
           <div className="flex flex-col items-center gap-4 sm:gap-5 mdl:flex-row">
             {CompanyLinks.map((clink, index) => (
               <Link
@@ -54,12 +78,10 @@ const NavBar = (props: Props) => {
                 {clink.title}
               </Link>
             ))}
-
             <Separator
               orientation="vertical"
               className="hidden mdl:block h-6"
             />
-
             <Link
               href="/libraries"
               className={
