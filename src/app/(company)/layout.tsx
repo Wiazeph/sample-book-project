@@ -13,7 +13,9 @@ export default function CompanyLayout({
         <NavBar />
       </nav>
 
-      <main className="Main">{children}</main>
+      <main className="Main my-10 sm:my-12 md:my-16 lg:my-20 xl:my-24">
+        {children}
+      </main>
 
       <footer className="Footer">
         <Footer />
