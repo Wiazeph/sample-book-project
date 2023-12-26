@@ -1,14 +1,14 @@
 export const ProductLinks = [
   {
-    path: '/libraries',
-    title: 'Libraries',
+    path: '/profile',
+    title: 'Profile',
   },
   {
-    path: '/new-list',
-    title: 'New List',
+    path: 'profile/my-libraries',
+    title: 'My Libraries',
   },
   {
-    path: '/my-lists',
-    title: 'My Lists',
+    path: '/explore-libraries',
+    title: 'Explore Libraries',
   },
 ]

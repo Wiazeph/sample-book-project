@@ -2,9 +2,9 @@ import React from 'react'
 
 type Props = {}
 
-const HomeComponent = (props: Props) => {
+const ExploreLibrariesComponent = (props: Props) => {
   return (
-    <div className="Home">
+    <div className="Explore-Libraries">
       <div className="container">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam ea at
         eveniet repellat quos dolores, quo reiciendis sit quod consequuntur,
@@ -89,4 +89,4 @@ const HomeComponent = (props: Props) => {
   )
 }
 
-export default HomeComponent
+export default ExploreLibrariesComponent

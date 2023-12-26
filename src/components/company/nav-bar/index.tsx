@@ -83,9 +83,9 @@ const NavBar = (props: Props) => {
               className="hidden mdl:block h-6"
             />
             <Link
-              href="/libraries"
+              href="/explore-libraries"
               className={
-                pathname === '/libraries'
+                pathname === '/explore-libraries'
                   ? 'NavLink-Active'
                   : 'NavLink w-max lg:flex lg:gap-x-1.5'
               }
