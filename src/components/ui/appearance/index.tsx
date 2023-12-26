@@ -49,8 +49,8 @@ const Appearance = (props: Props) => {
     <div className="Appearance flex gap-x-2 text-xs leading-3">
       <Select
         onValueChange={handleThemeChange}
-        defaultValue={theme}
-        value={theme}
+        defaultValue={theme || undefined}
+        value={theme || undefined}
       >
         <SelectTrigger className="h-9 flex items-center gap-x-2 px-2 border rounded-md bg-none! hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
           {theme === 'Light' && <Sun className="Icon w-4 h-4" />}

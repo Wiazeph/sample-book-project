@@ -1,10 +1,9 @@
 import React from 'react'
-import ProductMainLayout from '@/layouts/product/main'
 
 type Props = {}
 
-const page = (props: Props) => {
-  return <ProductMainLayout />
+const Product = (props: Props) => {
+  return <div>Product Home</div>
 }
 
-export default page
+export default Product
