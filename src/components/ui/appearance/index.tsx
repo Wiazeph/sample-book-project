@@ -20,26 +20,28 @@ type Props = {
 const Appearance = (props: Props) => {
   const theme = useThemeStore((state) => state.theme)
 
-  const element = document.documentElement
-  const darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
-
   useEffect(() => {
-    if (theme === 'Light') {
-      element.classList.remove('dark')
-      localStorage.setItem('theme', 'Light')
-    } else if (theme === 'Dark') {
-      element.classList.add('dark')
-      localStorage.setItem('theme', 'Dark')
-    } else if (theme === 'System') {
-      if (darkQuery.matches) {
-        element.classList.add('dark')
-        localStorage.setItem('theme', 'System')
-      } else {
+    if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+      const element = document.documentElement
+      const darkQuery = window.matchMedia('(prefers-color-scheme: dark)')
+
+      if (theme === 'Light') {
         element.classList.remove('dark')
-        localStorage.removeItem('theme')
+        localStorage.setItem('theme', 'Light')
+      } else if (theme === 'Dark') {
+        element.classList.add('dark')
+        localStorage.setItem('theme', 'Dark')
+      } else if (theme === 'System') {
+        if (darkQuery.matches) {
+          element.classList.add('dark')
+          localStorage.setItem('theme', 'System')
+        } else {
+          element.classList.remove('dark')
+          localStorage.removeItem('theme')
+        }
       }
     }
-  }, [theme, darkQuery.matches])
+  }, [theme])
 
   const handleThemeChange = (value: string) => {
     useThemeStore.setState({ theme: value })

@@ -4,10 +4,10 @@ type Props = {
   theme: string | null
   setTheme: (theme: string) => void
 }
+const initialTheme =
+  typeof window !== 'undefined' ? localStorage.getItem('theme') : 'System'
 
 export const useThemeStore = create<Props>((set) => ({
-  theme: localStorage.getItem('theme')
-    ? localStorage.getItem('theme')
-    : 'System',
+  theme: initialTheme,
   setTheme: (theme) => set({ theme }),
 }))
