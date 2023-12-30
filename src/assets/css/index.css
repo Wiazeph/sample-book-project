@@ -75,7 +75,7 @@
 @layer components {
   /* Product Pages */
   .Page {
-    @apply p-14 h-full overflow-y-auto;
+    @apply p-14 h-full flex flex-col overflow-y-auto;
   }
   /* Product Pages */
 
@@ -137,4 +137,14 @@
     transform: translateX(-16px);
   }
   /* Hamburger Menu */
+
+  /* No Scroll Bar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  /* No Scroll Bar */
 }

@@ -8,6 +8,10 @@ export const ProductLinks = [
     title: 'My Libraries',
   },
   {
+    path: 'profile/favorites',
+    title: 'Favorites',
+  },
+  {
     path: '/explore-libraries',
     title: 'Explore Libraries',
   },

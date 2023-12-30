@@ -13,7 +13,7 @@ const NavBar = (props: Props) => {
 
   return (
     <div className="Product-Links w-full flex flex-col">
-      <div className="pt-1 pb-3 font-medium select-none">Product</div>
+      <div className="pt-1 pb-3 font-medium">Product</div>
 
       <nav className="Product-Links flex flex-col text-sm">
         {ProductLinks.map((plink, index) => (

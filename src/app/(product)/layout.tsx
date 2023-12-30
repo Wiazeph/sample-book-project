@@ -10,7 +10,7 @@ export default function ProductLayout({
     <div className="Product-Layout flex">
       <SideBar />
 
-      <main className="Main h-dvh">{children}</main>
+      <main className="Main w-full h-dvh">{children}</main>
     </div>
   )
 }
