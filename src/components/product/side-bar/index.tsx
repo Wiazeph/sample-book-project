@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator'
 // shadcn/ui
 import Logo from '@/components/logo'
 import Socials from '@/components/socials'
+import NavBar from '@/components/product/nav-bar'
 
 type Props = {}
 
@@ -15,6 +16,8 @@ const SideBar = (props: Props) => {
       <Socials />
 
       <Separator />
+
+      <NavBar />
     </div>
   )
 }
