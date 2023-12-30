@@ -1,3 +1,5 @@
+'use client'
+
 import React from 'react'
 // shadcn/ui
 import { Separator } from '@/components/ui/separator'

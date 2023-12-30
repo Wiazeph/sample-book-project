@@ -4,11 +4,11 @@ export const ProductLinks = [
     title: 'Profile',
   },
   {
-    path: 'profile/my-libraries',
+    path: '/profile/my-libraries',
     title: 'My Libraries',
   },
   {
-    path: 'profile/favorites',
+    path: '/profile/favorites',
     title: 'Favorites',
   },
   {

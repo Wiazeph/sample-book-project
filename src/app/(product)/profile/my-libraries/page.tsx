@@ -1,5 +1,5 @@
 import React from 'react'
-import MyLibrariesComponent from '@/components/product/pages/profile/my-libraries'
+import MyLibrariesComponent from '@/components/product/pages/my-libraries'
 
 type Props = {}
 
