@@ -13,7 +13,7 @@ const NavBar = (props: Props) => {
 
   return (
     <div className="Product-Links w-full flex flex-col">
-      <div className="font-medium py-2 select-none">Product</div>
+      <div className="pt-1 pb-3 font-medium select-none">Product</div>
 
       <nav className="Product-Links flex flex-col text-sm">
         {ProductLinks.map((plink, index) => (
@@ -21,7 +21,7 @@ const NavBar = (props: Props) => {
             key={index}
             href={plink.path}
             className={cn(
-              'py-2 rounded-md hover:pl-2 hover:bg-zinc-200/50 transition-all ease-in-out',
+              'py-2 rounded-md hover:pl-2 transition-all ease-in-out',
               pathname === plink.path ? 'NavLink-Active' : 'NavLink'
             )}
           >
