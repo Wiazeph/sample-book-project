@@ -24,6 +24,15 @@ const formSchema = z
       message: 'Please enter a valid email.',
     }),
 
+    full_name: z
+      .string()
+      .min(3, {
+        message: 'Full name must be at least 3 characters',
+      })
+      .max(32, {
+        message: 'Full name must be less than 32 characters',
+      }),
+
     username: z
       .string()
       .min(4, {
@@ -63,6 +72,7 @@ export default function ProfileForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
+      full_name: '',
       username: '',
       password: '',
       confirm: '',
@@ -98,6 +108,19 @@ export default function ProfileForm() {
               <FormLabel>E-Mail</FormLabel>
               <FormControl>
                 <Input placeholder="Please enter your email" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="full_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Please enter your full name" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
