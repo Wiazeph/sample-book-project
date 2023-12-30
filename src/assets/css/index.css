@@ -73,6 +73,12 @@
 /* shadcn/ui */
 
 @layer components {
+  /* Product Pages */
+  .Page {
+    @apply p-14 h-full overflow-y-auto;
+  }
+  /* Product Pages */
+
   /* Navigation Links */
   .NavLink {
     @apply text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50 transition-colors;
