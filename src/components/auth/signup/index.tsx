@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 
-import { createClient } from '@/utils/supabase/client'
+import { supabase } from '@/utils/supabase/client'
 
 const formSchema = z
   .object({
@@ -66,8 +66,6 @@ const formSchema = z
   })
 
 export default function ProfileForm() {
-  const supabase = createClient()
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
