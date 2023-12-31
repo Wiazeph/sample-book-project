@@ -43,8 +43,6 @@ export const config = {
      * - favicon.ico (favicon file)
      * Feel free to modify this pattern to include more paths.
      */
-    '/',
-    '/profile',
     '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 }
