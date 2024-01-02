@@ -1,29 +1,79 @@
-import { createMiddlewareClient } from '@supabase/auth-helpers-nextjs'
-import { NextResponse } from 'next/server'
-import type { NextRequest } from 'next/server'
-import type { Database } from '@/types/supabase'
+import { createServerClient, type CookieOptions } from '@supabase/ssr'
+import { NextResponse, type NextRequest } from 'next/server'
+import { Database } from '@/types/supabase'
 
-export async function middleware(req: NextRequest) {
-  const res = NextResponse.next()
+export async function middleware(request: NextRequest) {
+  let response = NextResponse.next({
+    request: {
+      headers: request.headers,
+    },
+  })
 
-  // Create a Supabase client configured to use cookies
-  const supabase = createMiddlewareClient<Database>({ req, res })
+  const supabase = createServerClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    {
+      cookies: {
+        get(name: string) {
+          return request.cookies.get(name)?.value
+        },
+        set(name: string, value: string, options: CookieOptions) {
+          request.cookies.set({
+            name,
+            value,
+            ...options,
+          })
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
+          response.cookies.set({
+            name,
+            value,
+            ...options,
+          })
+        },
+        remove(name: string, options: CookieOptions) {
+          request.cookies.set({
+            name,
+            value: '',
+            ...options,
+          })
+          response = NextResponse.next({
+            request: {
+              headers: request.headers,
+            },
+          })
+          response.cookies.set({
+            name,
+            value: '',
+            ...options,
+          })
+        },
+      },
+    }
+  )
 
   const {
     data: { session },
   } = await supabase.auth.getSession()
 
-  // if (
-  //   (session && req.nextUrl.pathname === '/auth/signup') ||
-  //   req.nextUrl.pathname === '/auth/login'
-  // ) {
-  //   return NextResponse.redirect(new URL('/profile', req.url))
-  // }
+  const authPaths = ['/auth/login', '/auth/signup']
 
-  return res
+  if (session && authPaths.includes(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL('/profile', request.url))
+  }
+
+  const profilePath = '/profile'
+
+  if (!session && request.nextUrl.pathname.startsWith(profilePath)) {
+    return NextResponse.redirect(new URL('/auth/login', request.url))
+  }
+
+  return response
 }
 
-// Ensure the middleware is only called for relevant paths.
 export const config = {
   matcher: [
     /*
