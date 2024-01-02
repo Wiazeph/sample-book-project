@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
 
-import { supabase } from '@/utils/supabase/client'
+import { signUpWithEmailAndPassword } from '@/types/actions'
 
 const formSchema = z
   .object({
@@ -79,25 +79,41 @@ export default function ProfileForm() {
 
   const { toast } = useToast()
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    toast({
-      title: 'You submitted following values:',
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-        </pre>
-      ),
-    })
-
-    supabase.auth.signUp({
-      ...values,
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const result = await signUpWithEmailAndPassword({
+      email: values.email,
+      password: values.password,
+      confirm: values.confirm,
       options: {
         data: {
-          username: values.username,
           full_name: values.full_name,
+          username: values.username,
         },
       },
     })
+
+    const { error } = JSON.parse(result)
+
+    if (error?.message) {
+      toast({
+        variant: 'destructive',
+        title: 'You submitted following values:',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">{error.message}</code>
+          </pre>
+        ),
+      })
+    } else {
+      toast({
+        title: 'You submitted following values:',
+        description: (
+          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            <code className="text-white">Successfully Register</code>
+          </pre>
+        ),
+      })
+    }
   }
 
   return (
