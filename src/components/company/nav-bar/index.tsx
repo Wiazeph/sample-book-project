@@ -2,6 +2,15 @@
 
 // shadcn/ui
 import { Separator } from '@/components/ui/separator'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 // shadcn/ui
 import React, { useEffect, useMemo } from 'react'
 import { useState } from 'react'
@@ -9,10 +18,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Logo from '@/components/logo'
 import { CompanyLinks } from '@/utils/consts/nav-links/company'
+import { ProductLinks } from '@/utils/consts/nav-links/product'
 import Appearance from '@/components/ui/appearance'
 import { useWindowScroll, useWindowSize } from '@uidotdev/usehooks'
 import { cn } from '@/lib/utils'
-import readUserSession from '@/utils/supabase/action'
+import userSession from '@/utils/supabase/action'
 
 type Props = {}
 
@@ -21,21 +31,16 @@ const NavBar = (props: Props) => {
   const handleOnClick = () => setIsActive(!isActive)
   const activeClass = isActive && 'active'
 
-  const pathname = usePathname()
-
   const [{ y }] = useWindowScroll()
   const { width } = useWindowSize()
-
   const isLogoShow = useMemo(
     () => (width && width < 896 ? <Logo /> : null),
     [width]
   )
-
   const isScrolled = useMemo(
     () => (width && width < 896 ? y !== null && y > 50 : y !== null && y > 80),
     [width, y]
   )
-
   const classes = useMemo(
     () => ({
       parent: cn('bg-background', isScrolled && 'border-b'),
@@ -43,21 +48,22 @@ const NavBar = (props: Props) => {
     [isScrolled]
   )
 
+  const pathname = usePathname()
+
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userInfo, setUserInfo] = useState<any | null>()
+
+  const fetchUserData = async () => {
+    const result = await userSession()
+
+    if (!result.error) {
+      setIsLoggedIn(true)
+      setUserInfo(result.data.user || '')
+    }
+  }
 
   useEffect(() => {
-    const checkUserSession = async () => {
-      try {
-        const {
-          data: { session },
-        } = await readUserSession()
-        setIsLoggedIn(session !== null)
-      } catch (error) {
-        console.error('Error checking user session:', error)
-      }
-    }
-
-    checkUserSession()
+    fetchUserData()
   }, [])
 
   return (
@@ -122,9 +128,36 @@ const NavBar = (props: Props) => {
             />
 
             {isLoggedIn ? (
-              <Link href="/profile" className="NavLink w-max">
-                Profile
-              </Link>
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Avatar>
+                    <AvatarImage src="#" />
+                    <AvatarFallback>CN</AvatarFallback>
+                  </Avatar>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  <DropdownMenuLabel>
+                    {userInfo?.user_metadata.username}
+                  </DropdownMenuLabel>
+                  <DropdownMenuLabel className="text-[13px]">
+                    {userInfo?.email}
+                  </DropdownMenuLabel>
+
+                  <DropdownMenuSeparator />
+
+                  {ProductLinks.map((plink, index) =>
+                    index < ProductLinks.length - 1 ? (
+                      <Link href={plink.path} key={index}>
+                        <DropdownMenuItem>{plink.title}</DropdownMenuItem>
+                      </Link>
+                    ) : null
+                  )}
+
+                  <DropdownMenuSeparator />
+
+                  <DropdownMenuItem>Sign Out</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <div className="flex flex-col items-center gap-4 sm:gap-5 mdl:flex-row">
                 <Link href="/auth/login" className="NavLink w-max">
