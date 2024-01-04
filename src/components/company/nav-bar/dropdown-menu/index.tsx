@@ -15,11 +15,22 @@ import React from 'react'
 import { ProductLinks } from '@/utils/consts/nav-links/product'
 import { useUserSession } from '@/stores/supabase/user-session'
 import Link from 'next/link'
+import { supabase } from '@/utils/supabase/client'
 
 type Props = {}
 
 const NavDropdownMenu = (props: Props) => {
   const userData = useUserSession((state) => state.user)
+
+  const logOut = async () => {
+    const { error } = await supabase.auth.signOut()
+
+    if (error) {
+      return { error }
+    }
+
+    return true
+  }
 
   return (
     <DropdownMenu>
@@ -53,7 +64,10 @@ const NavDropdownMenu = (props: Props) => {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem className="p-0">
-          <button className="px-2 py-1.5 w-full text-left text-red-500">
+          <button
+            className="px-2 py-1.5 w-full text-left text-red-500"
+            onClick={logOut}
+          >
             Log Out
           </button>
         </DropdownMenuItem>
