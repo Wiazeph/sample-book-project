@@ -6,6 +6,6 @@ type Props = {
 }
 
 export const useUserSession = create<Props>((set) => ({
-  user: {},
+  user: null,
   setUser: (user) => set({ user }),
 }))

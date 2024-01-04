@@ -2,28 +2,21 @@
 
 // shadcn/ui
 import { Separator } from '@/components/ui/separator'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Skeleton } from '@/components/ui/skeleton'
 // shadcn/ui
-import React, { useCallback, useEffect, useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import Logo from '@/components/logo'
-import { CompanyLinks } from '@/utils/consts/nav-links/company'
-import { ProductLinks } from '@/utils/consts/nav-links/product'
 import Appearance from '@/components/ui/appearance'
+import { CompanyLinks } from '@/utils/consts/nav-links/company'
 import { useWindowScroll, useWindowSize } from '@uidotdev/usehooks'
 import { cn } from '@/lib/utils'
+import DropdownMenu from './dropdown-menu'
+import AuthButtons from './auth-buttons'
 import { useUserSession } from '@/stores/supabase/user-session'
-import UserSession from '@/utils/supabase/action'
+import { UserSession } from '@/utils/supabase/action'
 
 type Props = {}
 
@@ -116,55 +109,27 @@ const NavBar = (props: Props) => {
               className="hidden mdl:block h-6"
             />
 
-            {userData.session ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger>
-                  <Avatar>
-                    <AvatarImage src="#" />
-                    <AvatarFallback>CN</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent>
-                  <DropdownMenuLabel>
-                    {userData.user?.user_metadata?.username}
-                  </DropdownMenuLabel>
-                  <DropdownMenuLabel className="text-[13px]">
-                    {userData.user?.email}
-                  </DropdownMenuLabel>
-
-                  <DropdownMenuSeparator />
-
-                  {ProductLinks.map((plink, index) =>
-                    index < ProductLinks.length - 1 ? (
-                      <Link href={plink.path} key={index}>
-                        <DropdownMenuItem>{plink.title}</DropdownMenuItem>
-                      </Link>
-                    ) : null
-                  )}
-
-                  <DropdownMenuSeparator />
-
-                  <DropdownMenuItem>Sign Out</DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+            {userData === null ? (
+              <NavBar.Loader />
+            ) : userData?.session ? (
+              <DropdownMenu />
             ) : (
-              <div className="flex flex-col items-center gap-4 sm:gap-5 mdl:flex-row">
-                <Link href="/auth/login" className="NavLink w-max">
-                  Log In
-                </Link>
-
-                <Link
-                  href="/auth/signup"
-                  className="relative w-max h-9 px-3 flex items-center justify-center text-zinc-50 bg-zinc-800 border transition-colors rounded-md cursor-pointer overflow-hidden before:content-[''] before:absolute before:top-0 before:bottom-0 before:w-1/3 before:bg-zinc-50/30 before:blur before:select-none before:translate-x-[-260%] before:skew-x-[-20deg] before:transition-transform before:duration-500 before:ease-in-out hover:before:translate-x-[260%] hover:before:skew-x-[-20deg]"
-                >
-                  Get Started
-                </Link>
-              </div>
+              <AuthButtons />
             )}
           </div>
         </div>
       </div>
     </div>
+  )
+}
+
+NavBar.Loader = function NavBarLoader() {
+  return (
+    <>
+      <Skeleton className="w-14 h-8 rounded-md" />
+      <Skeleton className="w-24 h-8 rounded-md" />
+      <Skeleton className="w-10 h-10 rounded-full" />
+    </>
   )
 }
 
