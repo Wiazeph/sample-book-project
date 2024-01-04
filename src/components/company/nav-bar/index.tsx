@@ -12,7 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 // shadcn/ui
-import React, { useEffect, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo } from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -22,7 +22,8 @@ import { ProductLinks } from '@/utils/consts/nav-links/product'
 import Appearance from '@/components/ui/appearance'
 import { useWindowScroll, useWindowSize } from '@uidotdev/usehooks'
 import { cn } from '@/lib/utils'
-import userSession from '@/utils/supabase/action'
+import { useUserSession } from '@/stores/supabase/user-session'
+import UserSession from '@/utils/supabase/action'
 
 type Props = {}
 
@@ -50,21 +51,9 @@ const NavBar = (props: Props) => {
 
   const pathname = usePathname()
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userInfo, setUserInfo] = useState<any | null>()
+  UserSession()
 
-  const fetchUserData = async () => {
-    const result = await userSession()
-
-    if (!result.error) {
-      setIsLoggedIn(true)
-      setUserInfo(result.data.user || '')
-    }
-  }
-
-  useEffect(() => {
-    fetchUserData()
-  }, [])
+  const userData = useUserSession((state) => state.user)
 
   return (
     <div className={classes.parent}>
@@ -127,7 +116,7 @@ const NavBar = (props: Props) => {
               className="hidden mdl:block h-6"
             />
 
-            {isLoggedIn ? (
+            {userData.session ? (
               <DropdownMenu>
                 <DropdownMenuTrigger>
                   <Avatar>
@@ -137,10 +126,10 @@ const NavBar = (props: Props) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel>
-                    {userInfo?.user_metadata.username}
+                    {userData.user?.user_metadata?.username}
                   </DropdownMenuLabel>
                   <DropdownMenuLabel className="text-[13px]">
-                    {userInfo?.email}
+                    {userData.user?.email}
                   </DropdownMenuLabel>
 
                   <DropdownMenuSeparator />

@@ -1,26 +1,21 @@
-'use server'
+import { supabase } from '@/utils/supabase/client'
+import { useUserSession } from '@/stores/supabase/user-session'
 
-import createSupabaseServerClient from './server'
+const UserSession = async () => {
+  const setUserData = useUserSession((state) => state.setUser)
 
-const userSession = async () => {
-  const supabase = await createSupabaseServerClient()
+  try {
+    const { data } = await supabase.auth.getSession()
 
-  const { data } = await supabase.auth.getSession()
-
-  if (data.session) {
     const {
       data: { user },
       error,
-    } = await supabase.auth.getUser(data.session?.access_token)
+    } = await supabase.auth.getUser()
 
-    if (error) {
-      return { error }
-    } else {
-      return {
-        data: { session: data.session, user },
-      }
-    }
-  } else return { error: { message: 'No session' } }
+    setUserData({ session: data.session, user, error })
+  } catch (error) {
+    console.error('Error fetching user session:', error)
+  }
 }
 
-export default userSession
+export default UserSession
