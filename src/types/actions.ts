@@ -2,7 +2,7 @@
 
 import createSupabaseServerClient from '@/utils/supabase/server'
 
-interface SignUpValues {
+interface RegisterValues {
   email: string
   password: string
   confirm: string
@@ -14,7 +14,7 @@ interface SignUpValues {
   }
 }
 
-export async function signUpWithEmailAndPassword(values: SignUpValues) {
+export async function RegisterWithEmailAndPassword(values: RegisterValues) {
   const supabase = await createSupabaseServerClient()
 
   const result = await supabase.auth.signUp(values)

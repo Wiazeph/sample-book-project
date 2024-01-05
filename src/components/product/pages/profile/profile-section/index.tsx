@@ -11,10 +11,7 @@ const ProfileSection = (props: Props) => {
         <div className="Full-Name text-xl">Full Name</div>
 
         <div className="Username flex items-center gap-x-3 text-zinc-600 dark:text-zinc-400">
-          <div>
-            <span>@</span>
-            <span>username</span>
-          </div>
+          <div>@username</div>
 
           <div className="h-1 w-1 bg-red-500"></div>
 

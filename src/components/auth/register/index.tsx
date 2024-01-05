@@ -15,8 +15,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { useToast } from '@/components/ui/use-toast'
-
-import { signUpWithEmailAndPassword } from '@/types/actions'
+import { RegisterWithEmailAndPassword } from '@/types/actions'
 
 const formSchema = z
   .object({
@@ -26,7 +25,7 @@ const formSchema = z
 
     full_name: z
       .string()
-      .min(3, {
+      .min(2, {
         message: 'Full name must be at least 3 characters',
       })
       .max(25, {
@@ -80,7 +79,7 @@ export default function ProfileForm() {
   const { toast } = useToast()
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const result = await signUpWithEmailAndPassword({
+    const result = await RegisterWithEmailAndPassword({
       email: values.email,
       password: values.password,
       confirm: values.confirm,
