@@ -9,7 +9,7 @@ const LogOutComponent = (props: Props) => {
     const { error } = await supabase.auth.signOut()
 
     if (error) {
-      return
+      return { error }
     }
 
     redirect('/')

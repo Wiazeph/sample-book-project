@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 // shadcn/ui
-import { Button } from '@/components/ui/button'
 import {
   Form,
   FormControl,
@@ -14,7 +13,9 @@ import {
   FormMessage,
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { useToast } from '@/components/ui/use-toast'
+import { Button } from '@/components/ui/button'
+import { toast } from '@/components/ui/use-toast'
+// shadcn/ui
 import { RegisterWithEmailAndPassword } from '@/types/actions'
 
 const formSchema = z
@@ -64,7 +65,7 @@ const formSchema = z
     path: ['confirm'],
   })
 
-export default function ProfileForm() {
+export default function RegisterForm() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -75,8 +76,6 @@ export default function ProfileForm() {
       confirm: '',
     },
   })
-
-  const { toast } = useToast()
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     const result = await RegisterWithEmailAndPassword({
@@ -104,6 +103,8 @@ export default function ProfileForm() {
         ),
       })
     } else {
+      form.reset()
+
       toast({
         title: 'You submitted following values:',
         description: (
@@ -116,90 +117,92 @@ export default function ProfileForm() {
   }
 
   return (
-    <>
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="Sign-Up Form max-w-80 space-y-4"
-        >
-          <FormField
-            control={form.control}
-            name="email"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>E-Mail</FormLabel>
-                <FormControl>
-                  <Input placeholder="Please enter your email" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="full_name"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Full Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="Please enter your full name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="username"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Username</FormLabel>
-                <FormControl>
-                  <Input placeholder="Please enter your username" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="password"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Please enter your password"
-                    {...field}
-                    type="password"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="confirm"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Password Confirm</FormLabel>
-                <FormControl>
-                  <Input
-                    placeholder="Please enter your password again"
-                    {...field}
-                    type="password"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <Button type="submit" className="w-full">
-            Get Started
-          </Button>
-        </form>
-      </Form>
-    </>
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="Register Form max-w-80 space-y-4"
+      >
+        <FormField
+          control={form.control}
+          name="email"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>E-Mail</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Please enter your email"
+                  {...field}
+                  type="email"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="full_name"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Full Name</FormLabel>
+              <FormControl>
+                <Input placeholder="Please enter your full name" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="username"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Username</FormLabel>
+              <FormControl>
+                <Input placeholder="Please enter your username" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="password"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Please enter your password"
+                  {...field}
+                  type="password"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirm"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Password Confirm</FormLabel>
+              <FormControl>
+                <Input
+                  placeholder="Please enter your password again"
+                  {...field}
+                  type="password"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <Button type="submit" className="w-full">
+          Get Started
+        </Button>
+      </form>
+    </Form>
   )
 }

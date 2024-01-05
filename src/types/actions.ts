@@ -21,3 +21,16 @@ export async function RegisterWithEmailAndPassword(values: RegisterValues) {
 
   return JSON.stringify(result)
 }
+
+interface LoginValues {
+  email: string
+  password: string
+}
+
+export async function LogInWithEmailAndPassword(values: LoginValues) {
+  const supabase = await createSupabaseServerClient()
+
+  const result = await supabase.auth.signInWithPassword(values)
+
+  return JSON.stringify(result)
+}
