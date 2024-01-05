@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { toast } from '@/components/ui/use-toast'
+import { useToast } from '@/components/ui/use-toast'
 // shadcn/ui
 import { RegisterWithEmailAndPassword } from '@/types/actions'
 
@@ -66,6 +66,8 @@ const formSchema = z
   })
 
 export default function RegisterForm() {
+  const { toast } = useToast()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -95,23 +97,23 @@ export default function RegisterForm() {
     if (error?.message) {
       toast({
         variant: 'destructive',
-        title: 'You submitted following values:',
+        title: 'Registration Failed!',
         description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">{error.message}</code>
-          </pre>
+          <>
+            <div>There was an error during registration.</div>
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">Error: {error.message}</code>
+            </pre>
+          </>
         ),
       })
     } else {
       form.reset()
 
       toast({
-        title: 'You submitted following values:',
-        description: (
-          <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            <code className="text-white">Successfully Register</code>
-          </pre>
-        ),
+        title: 'Successfully Register',
+        description:
+          'You have successfully registered. You can verify with the e-mail sent to the address you entered.',
       })
     }
   }

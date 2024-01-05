@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-import { toast } from '@/components/ui/use-toast'
+import { useToast } from '@/components/ui/use-toast'
 // shadcn/ui
 import { useTransition } from 'react'
 import { cn } from '@/lib/utils'
@@ -39,6 +39,8 @@ const formSchema = z.object({
 export default function LogInForm() {
   const [isLoading, startTransition] = useTransition()
 
+  const { toast } = useToast()
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,23 +61,26 @@ export default function LogInForm() {
       if (error?.message) {
         toast({
           variant: 'destructive',
-          title: 'You submitted following values:',
+          title: 'Log In Failed!',
           description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">{error.message}</code>
-            </pre>
+            <>
+              <div>
+                There was an issue with your login. Please check your
+                credentials and try again.
+              </div>
+              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                <code className="text-white">Error: {error.message}</code>
+              </pre>
+            </>
           ),
         })
       } else {
         form.reset()
 
         toast({
-          title: 'You submitted following values:',
-          description: (
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">Successfully Log In</code>
-            </pre>
-          ),
+          title: 'Successfully Log In',
+          description:
+            'You have successfully logged in, you are redirected to your profile.',
         })
 
         redirect('/profile')
@@ -127,7 +132,7 @@ export default function LogInForm() {
           Log In
           <div
             className={cn(
-              'inline-block w-6 h-6 border-4 border-white/100 border-t-zinc-600 rounded-full animate-spin',
+              'inline-block w-5 h-5 border-[3px] border-white/100 border-t-zinc-600 rounded-full animate-spin',
               { hidden: !isLoading }
             )}
           ></div>
