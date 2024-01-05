@@ -1,15 +1,22 @@
 import React from 'react'
-import { redirect } from 'next/navigation'
+import { redirect, useRouter, usePathname } from 'next/navigation'
 import { supabase } from '@/utils/supabase/client'
 
 type Props = {}
 
 const LogOutComponent = (props: Props) => {
+  const router = useRouter()
+  const pathname = usePathname()
+
   const logOut = async () => {
     const { error } = await supabase.auth.signOut()
 
     if (error) {
       return { error }
+    }
+
+    if (pathname === '/') {
+      return router.refresh()
     }
 
     redirect('/')
