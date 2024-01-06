@@ -37,7 +37,7 @@ const formSchema = z.object({
 })
 
 export default function LogInForm() {
-  const [isLoading, startTransition] = useTransition()
+  const [isPending, startTransition] = useTransition()
 
   const { toast } = useToast()
 
@@ -133,7 +133,7 @@ export default function LogInForm() {
           <div
             className={cn(
               'inline-block w-5 h-5 border-[3px] border-white/100 border-t-zinc-600 rounded-full animate-spin',
-              { hidden: !isLoading }
+              { hidden: !isPending }
             )}
           ></div>
         </Button>

@@ -12,7 +12,7 @@ const LogOutComponent = (props: Props) => {
     const { error } = await supabase.auth.signOut()
 
     if (error) {
-      return { error }
+      return console.log(error)
     }
 
     if (pathname === '/') {
