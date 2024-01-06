@@ -3,8 +3,8 @@ import RegisterComponent from '@/components/auth/register'
 
 type Props = {}
 
-const Register = (props: Props) => {
+const RegisterPage = (props: Props) => {
   return <RegisterComponent />
 }
 
-export default Register
+export default RegisterPage

@@ -13,13 +13,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 // shadcn/ui
 import React from 'react'
 import Link from 'next/link'
-import { ProductLinks } from '@/utils/consts/nav-links/product'
+import ProductLinks from '@/utils/consts/nav-links/product'
 import { useUserSession } from '@/stores/supabase/user-session'
-import LogOutButton from '@/components/auth/logout'
+import LogOutButton from '@/components/auth/log-out'
 
 type Props = {}
 
-const NavDropdownMenu = (props: Props) => {
+const DropdownMenuComponent = (props: Props) => {
   const userData = useUserSession((state) => state.user)
 
   return (
@@ -30,13 +30,16 @@ const NavDropdownMenu = (props: Props) => {
             src={userData?.user?.avatar_url}
             alt={'@' + userData?.user?.user_metadata.full_name}
           />
+
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent>
         <DropdownMenuLabel>
           {userData?.user?.user_metadata.full_name}
         </DropdownMenuLabel>
+
         <DropdownMenuLabel className="-mt-1 text-[13px] text-zinc-600 dark:text-zinc-400">
           @{userData?.user?.user_metadata.username}
         </DropdownMenuLabel>
@@ -61,4 +64,4 @@ const NavDropdownMenu = (props: Props) => {
   )
 }
 
-export default NavDropdownMenu
+export default DropdownMenuComponent

@@ -1,4 +1,4 @@
-export const ProductLinks = [
+const ProductLinks = [
   {
     path: '/profile',
     title: 'Profile',
@@ -16,3 +16,5 @@ export const ProductLinks = [
     title: 'Explore Libraries',
   },
 ]
+
+export default ProductLinks

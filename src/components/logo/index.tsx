@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 
 type Props = {}
 
-const Logo = (props: Props) => {
+const LogoComponent = (props: Props) => {
   const pathname = usePathname()
 
   return (
@@ -14,4 +14,4 @@ const Logo = (props: Props) => {
   )
 }
 
-export default Logo
+export default LogoComponent

@@ -4,9 +4,9 @@
 import { Separator } from '@/components/ui/separator'
 // shadcn/ui
 import React from 'react'
-import { CompanyLinks } from '@/utils/consts/nav-links/company'
-import { ProductLinks } from '@/utils/consts/nav-links/product'
-import { LegalLinks } from '@/utils/consts/nav-links/legal'
+import CompanyLinks from '@/utils/consts/nav-links/company'
+import ProductLinks from '@/utils/consts/nav-links/product'
+import LegalLinks from '@/utils/consts/nav-links/legal'
 import LinkLists from './link-lists'
 import Logo from '@/components/logo'
 import Socials from '@/components/socials'
@@ -14,7 +14,7 @@ import Appearance from '@/components/ui/appearance'
 
 type Props = {}
 
-const Footer = (props: Props) => {
+const FooterComponent = (props: Props) => {
   return (
     <div className="container">
       <Separator />
@@ -48,4 +48,4 @@ const Footer = (props: Props) => {
   )
 }
 
-export default Footer
+export default FooterComponent

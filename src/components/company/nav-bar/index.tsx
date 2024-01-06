@@ -1,6 +1,7 @@
 'use client'
 
 // shadcn/ui
+import { cn } from '@/lib/utils'
 import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 // shadcn/ui
@@ -8,19 +9,18 @@ import React, { useMemo } from 'react'
 import { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import Logo from '@/components/logo'
-import Appearance from '@/components/ui/appearance'
-import { CompanyLinks } from '@/utils/consts/nav-links/company'
 import { useWindowScroll, useWindowSize } from '@uidotdev/usehooks'
-import { cn } from '@/lib/utils'
-import DropdownMenu from './dropdown-menu'
-import AuthButtons from './auth-buttons'
+import CompanyLinks from '@/utils/consts/nav-links/company'
 import { useUserSession } from '@/stores/supabase/user-session'
 import { UserSession } from '@/utils/supabase/action'
+import Logo from '@/components/logo'
+import Appearance from '@/components/ui/appearance'
+import DropdownMenu from './dropdown-menu'
+import AuthButtons from './auth-buttons'
 
 type Props = {}
 
-const NavBar = (props: Props) => {
+const NavBarComponent = (props: Props) => {
   const [isActive, setIsActive] = useState(false)
   const handleOnClick = () => setIsActive(!isActive)
   const activeClass = isActive && 'active'
@@ -110,7 +110,7 @@ const NavBar = (props: Props) => {
             />
 
             {userData === null ? (
-              <NavBar.Loader />
+              <NavBarComponent.Loader />
             ) : userData?.session ? (
               <DropdownMenu />
             ) : (
@@ -123,7 +123,7 @@ const NavBar = (props: Props) => {
   )
 }
 
-NavBar.Loader = function NavBarLoader() {
+NavBarComponent.Loader = function NavBarLoader() {
   return (
     <>
       <Skeleton className="w-14 h-8 rounded-md" />
@@ -133,4 +133,4 @@ NavBar.Loader = function NavBarLoader() {
   )
 }
 
-export default NavBar
+export default NavBarComponent

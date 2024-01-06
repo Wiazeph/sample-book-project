@@ -1,4 +1,4 @@
-export const CompanyLinks = [
+const CompanyLinks = [
   {
     path: '/blogs',
     title: 'Blogs',
@@ -16,3 +16,5 @@ export const CompanyLinks = [
     title: 'FAQ',
   },
 ]
+
+export default CompanyLinks

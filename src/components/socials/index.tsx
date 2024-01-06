@@ -1,9 +1,9 @@
 import React from 'react'
-import { SocialLinks } from '@/utils/consts/socials'
+import SocialLinks from '@/utils/consts/socials'
 
 type Props = {}
 
-const Socials = (props: Props) => {
+const SocialsComponent = (props: Props) => {
   return (
     <ul className="Social-Links flex items-center gap-x-4 sm:gap-x-5">
       {SocialLinks.map((slink, index) => (
@@ -17,4 +17,4 @@ const Socials = (props: Props) => {
   )
 }
 
-export default Socials
+export default SocialsComponent

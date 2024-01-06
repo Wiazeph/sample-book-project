@@ -1,8 +1,10 @@
+// shadcn/ui
+import { cn } from '@/lib/utils'
+import { Toaster } from '@/components/ui/toaster'
+// shadcn/ui
 import type { Metadata } from 'next'
 import { Inter as FontSans } from 'next/font/google'
 import '@/assets/css/index.css'
-import { cn } from '@/lib/utils'
-import { Toaster } from '@/components/ui/toaster'
 
 const fontSans = FontSans({
   subsets: ['latin'],

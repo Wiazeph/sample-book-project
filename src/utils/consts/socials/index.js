@@ -1,6 +1,6 @@
 import { Twitter, Instagram, Github, Linkedin } from 'lucide-react'
 
-export const SocialLinks = [
+const SocialLinks = [
   {
     path: '#',
     icon: <Twitter size={20} />,
@@ -18,3 +18,5 @@ export const SocialLinks = [
     icon: <Linkedin size={20} />,
   },
 ]
+
+export default SocialLinks

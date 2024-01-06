@@ -23,7 +23,7 @@ const LogOutComponent = (props: Props) => {
   }
 
   return (
-    <form action={logOut} className="w-full h-full">
+    <form action={logOut} className="Log-Out w-full h-full">
       <button className="px-2 py-1.5 w-full text-left text-red-500">
         Log Out
       </button>

@@ -3,8 +3,8 @@ import MyLibrariesComponent from '@/components/product/pages/my-libraries'
 
 type Props = {}
 
-const MyLibraries = (props: Props) => {
+const MyLibrariesPage = (props: Props) => {
   return <MyLibrariesComponent />
 }
 
-export default MyLibraries
+export default MyLibrariesPage

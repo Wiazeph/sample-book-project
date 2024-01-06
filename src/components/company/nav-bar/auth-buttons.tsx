@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 type Props = {}
 
-const AuthButtons = (props: Props) => {
+const AuthButtonsComponent = (props: Props) => {
   return (
     <div className="flex flex-col items-center gap-4 sm:gap-5 mdl:flex-row">
       <Link href="/auth/login" className="NavLink w-max">
@@ -20,4 +20,4 @@ const AuthButtons = (props: Props) => {
   )
 }
 
-export default AuthButtons
+export default AuthButtonsComponent

@@ -1,14 +1,16 @@
 'use client'
 
+// shadcn/ui
+import { cn } from '@/lib/utils'
+// shadcn/ui
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { cn } from '@/lib/utils'
-import { ProductLinks } from '@/utils/consts/nav-links/product'
+import ProductLinks from '@/utils/consts/nav-links/product'
 
 type Props = {}
 
-const NavBar = (props: Props) => {
+const NavBarComponent = (props: Props) => {
   const pathname = usePathname()
 
   return (
@@ -33,4 +35,4 @@ const NavBar = (props: Props) => {
   )
 }
 
-export default NavBar
+export default NavBarComponent

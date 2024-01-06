@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 // shadcn/ui
+import { cn } from '@/lib/utils'
 import {
   Form,
   FormControl,
@@ -16,6 +17,7 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 // shadcn/ui
+import { useTransition } from 'react'
 import { RegisterWithEmailAndPassword } from '@/types/actions'
 
 const formSchema = z
@@ -66,6 +68,8 @@ const formSchema = z
   })
 
 export default function RegisterForm() {
+  const [isPending, startTransition] = useTransition()
+
   const { toast } = useToast()
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -80,42 +84,44 @@ export default function RegisterForm() {
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const result = await RegisterWithEmailAndPassword({
-      email: values.email,
-      password: values.password,
-      confirm: values.confirm,
-      options: {
-        data: {
-          full_name: values.full_name,
-          username: values.username,
+    startTransition(async () => {
+      const result = await RegisterWithEmailAndPassword({
+        email: values.email,
+        password: values.password,
+        confirm: values.confirm,
+        options: {
+          data: {
+            full_name: values.full_name,
+            username: values.username,
+          },
         },
-      },
+      })
+
+      const { error } = JSON.parse(result)
+
+      if (error?.message) {
+        toast({
+          variant: 'destructive',
+          title: 'Registration Failed!',
+          description: (
+            <>
+              <div>There was an error during registration.</div>
+              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                <code className="text-white">Error: {error.message}</code>
+              </pre>
+            </>
+          ),
+        })
+      } else {
+        form.reset()
+
+        toast({
+          title: 'Successfully Register',
+          description:
+            'You have successfully registered. You can verify with the e-mail sent to the address you entered.',
+        })
+      }
     })
-
-    const { error } = JSON.parse(result)
-
-    if (error?.message) {
-      toast({
-        variant: 'destructive',
-        title: 'Registration Failed!',
-        description: (
-          <>
-            <div>There was an error during registration.</div>
-            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-              <code className="text-white">Error: {error.message}</code>
-            </pre>
-          </>
-        ),
-      })
-    } else {
-      form.reset()
-
-      toast({
-        title: 'Successfully Register',
-        description:
-          'You have successfully registered. You can verify with the e-mail sent to the address you entered.',
-      })
-    }
   }
 
   return (
@@ -141,6 +147,7 @@ export default function RegisterForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="full_name"
@@ -154,6 +161,7 @@ export default function RegisterForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="username"
@@ -167,6 +175,7 @@ export default function RegisterForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="password"
@@ -184,6 +193,7 @@ export default function RegisterForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="confirm"
@@ -201,8 +211,15 @@ export default function RegisterForm() {
             </FormItem>
           )}
         />
+
         <Button type="submit" className="w-full">
           Get Started
+          <div
+            className={cn(
+              'inline-block w-5 h-5 border-[3px] border-white/100 border-t-zinc-600 rounded-full animate-spin',
+              { hidden: !isPending }
+            )}
+          ></div>
         </Button>
       </form>
     </Form>

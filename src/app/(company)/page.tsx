@@ -3,8 +3,8 @@ import HomeComponent from '@/components/company/pages/home'
 
 type Props = {}
 
-const Home = (props: Props) => {
+const HomePage = (props: Props) => {
   return <HomeComponent />
 }
 
-export default Home
+export default HomePage

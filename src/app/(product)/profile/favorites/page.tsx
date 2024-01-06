@@ -3,8 +3,8 @@ import FavoritesComponent from '@/components/product/pages/favorites'
 
 type Props = {}
 
-const Favorites = (props: Props) => {
+const FavoritesPage = (props: Props) => {
   return <FavoritesComponent />
 }
 
-export default Favorites
+export default FavoritesPage

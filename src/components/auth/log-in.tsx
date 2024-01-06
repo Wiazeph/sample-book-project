@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import * as z from 'zod'
 // shadcn/ui
+import { cn } from '@/lib/utils'
 import {
   Form,
   FormControl,
@@ -17,9 +18,8 @@ import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 // shadcn/ui
 import { useTransition } from 'react'
-import { cn } from '@/lib/utils'
-import { LogInWithEmailAndPassword } from '@/types/actions'
 import { redirect } from 'next/navigation'
+import { LogInWithEmailAndPassword } from '@/types/actions'
 
 const formSchema = z.object({
   email: z.string().email({
@@ -111,6 +111,7 @@ export default function LogInForm() {
             </FormItem>
           )}
         />
+
         <FormField
           control={form.control}
           name="password"
@@ -128,6 +129,7 @@ export default function LogInForm() {
             </FormItem>
           )}
         />
+
         <Button type="submit" className="w-full flex gap-x-2">
           Log In
           <div

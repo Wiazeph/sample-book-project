@@ -1,4 +1,4 @@
-export const LegalLinks = [
+const LegalLinks = [
   {
     path: '/privacy-policy',
     title: 'Privacy Policy',
@@ -8,3 +8,5 @@ export const LegalLinks = [
     title: 'Terms of Service',
   },
 ]
+
+export default LegalLinks

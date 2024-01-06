@@ -3,8 +3,8 @@ import AboutComponent from '@/components/company/pages/about'
 
 type Props = {}
 
-const About = (props: Props) => {
+const AboutPage = (props: Props) => {
   return <AboutComponent />
 }
 
-export default About
+export default AboutPage

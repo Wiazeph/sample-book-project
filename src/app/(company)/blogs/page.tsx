@@ -3,8 +3,8 @@ import BlogsComponent from '@/components/company/pages/blogs'
 
 type Props = {}
 
-const Blogs = (props: Props) => {
+const BlogsPage = (props: Props) => {
   return <BlogsComponent />
 }
 
-export default Blogs
+export default BlogsPage

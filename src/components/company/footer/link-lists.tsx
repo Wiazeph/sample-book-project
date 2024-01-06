@@ -7,7 +7,7 @@ type Props = {
   linkType: string
 }
 
-const LinkLists = (props: Props) => {
+const LinkListsComponent = (props: Props) => {
   const pathname = usePathname()
 
   return (
@@ -29,4 +29,4 @@ const LinkLists = (props: Props) => {
   )
 }
 
-export default LinkLists
+export default LinkListsComponent

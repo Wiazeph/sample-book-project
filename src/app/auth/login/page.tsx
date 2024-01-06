@@ -1,10 +1,10 @@
 import React from 'react'
-import LogInComponent from '@/components/auth/login'
+import LogInComponent from '@/components/auth/log-in'
 
 type Props = {}
 
-const LogIn = (props: Props) => {
+const LogInPage = (props: Props) => {
   return <LogInComponent />
 }
 
-export default LogIn
+export default LogInPage
