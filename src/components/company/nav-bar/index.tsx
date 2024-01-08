@@ -5,14 +5,13 @@ import { cn } from '@/lib/utils'
 import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 // shadcn/ui
-import React, { useMemo } from 'react'
-import { useState } from 'react'
+import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useWindowScroll, useWindowSize } from '@uidotdev/usehooks'
+import useStore from '@/stores/supabase/useStore'
+import { useGetSession } from '@/stores/supabase/get-session'
 import CompanyLinks from '@/utils/consts/nav-links/company'
-import { useUserSession } from '@/stores/supabase/user-session'
-import { UserSession } from '@/utils/supabase/action'
 import Logo from '@/components/logo'
 import Appearance from '@/components/ui/appearance'
 import DropdownMenu from './dropdown-menu'
@@ -44,9 +43,7 @@ const NavBarComponent = (props: Props) => {
 
   const pathname = usePathname()
 
-  UserSession()
-
-  const userData = useUserSession((state) => state.user)
+  const sessionResult = useStore(useGetSession, (state) => state.session)
 
   return (
     <div className={classes.parent}>
@@ -109,9 +106,9 @@ const NavBarComponent = (props: Props) => {
               className="hidden mdl:block h-6"
             />
 
-            {userData === null ? (
+            {sessionResult === null ? (
               <NavBarComponent.Loader />
-            ) : userData?.session ? (
+            ) : sessionResult?.access_token ? (
               <DropdownMenu />
             ) : (
               <AuthButtons />

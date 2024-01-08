@@ -13,22 +13,23 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 // shadcn/ui
 import React from 'react'
 import Link from 'next/link'
+import useStore from '@/stores/supabase/useStore'
+import { useGetUser } from '@/stores/supabase/get-user'
 import ProductLinks from '@/utils/consts/nav-links/product'
-import { useUserSession } from '@/stores/supabase/user-session'
 import LogOutButton from '@/components/auth/log-out'
 
 type Props = {}
 
 const DropdownMenuComponent = (props: Props) => {
-  const userData = useUserSession((state) => state.user)
+  const userResult = useStore(useGetUser, (state) => state.user)
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
           <AvatarImage
-            src={userData?.user?.avatar_url}
-            alt={'@' + userData?.user?.user_metadata.full_name}
+            src={userResult?.avatar_url}
+            alt={'@' + userResult?.user_metadata.full_name}
           />
 
           <AvatarFallback>CN</AvatarFallback>
@@ -37,11 +38,11 @@ const DropdownMenuComponent = (props: Props) => {
 
       <DropdownMenuContent>
         <DropdownMenuLabel>
-          {userData?.user?.user_metadata.full_name}
+          {userResult?.user_metadata.full_name}
         </DropdownMenuLabel>
 
         <DropdownMenuLabel className="-mt-1 text-[13px] text-zinc-600 dark:text-zinc-400">
-          @{userData?.user?.user_metadata.username}
+          @{userResult?.user_metadata.username}
         </DropdownMenuLabel>
 
         <DropdownMenuSeparator />
