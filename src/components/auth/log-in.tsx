@@ -19,7 +19,7 @@ import { useToast } from '@/components/ui/use-toast'
 // shadcn/ui
 import { useTransition } from 'react'
 import { redirect } from 'next/navigation'
-import { LogInWithEmailAndPassword } from '@/types/actions'
+import { LogInWithEmailAndPassword } from '@/utils/supabase/actions/auth'
 
 const formSchema = z.object({
   email: z.string().email({
@@ -56,25 +56,7 @@ export default function LogInForm() {
         password: values.password,
       })
 
-      const { error } = JSON.parse(result)
-
-      if (error?.message) {
-        toast({
-          variant: 'destructive',
-          title: 'Log In Failed!',
-          description: (
-            <>
-              <div>
-                There was an issue with your login. Please check your
-                credentials and try again.
-              </div>
-              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                <code className="text-white">Error: {error.message}</code>
-              </pre>
-            </>
-          ),
-        })
-      } else {
+      if (!result?.error) {
         form.reset()
 
         toast({
@@ -84,6 +66,13 @@ export default function LogInForm() {
         })
 
         redirect('/profile')
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Log In Failed!',
+          description:
+            'There was an issue with your login. Please check your credentials and try again.',
+        })
       }
     })
   }

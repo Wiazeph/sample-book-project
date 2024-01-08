@@ -18,7 +18,8 @@ import { Button } from '@/components/ui/button'
 import { useToast } from '@/components/ui/use-toast'
 // shadcn/ui
 import { useTransition } from 'react'
-import { RegisterWithEmailAndPassword } from '@/types/actions'
+import { redirect } from 'next/navigation'
+import { RegisterWithEmailAndPassword } from '@/utils/supabase/actions/auth'
 
 const formSchema = z
   .object({
@@ -76,14 +77,14 @@ export default function RegisterForm() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: '',
-      full_name: '',
-      username: '',
       password: '',
       confirm: '',
+      full_name: '',
+      username: '',
     },
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     startTransition(async () => {
       const result = await RegisterWithEmailAndPassword({
         email: values.email,
@@ -97,28 +98,21 @@ export default function RegisterForm() {
         },
       })
 
-      const { error } = JSON.parse(result)
-
-      if (error?.message) {
-        toast({
-          variant: 'destructive',
-          title: 'Registration Failed!',
-          description: (
-            <>
-              <div>There was an error during registration.</div>
-              <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-                <code className="text-white">Error: {error.message}</code>
-              </pre>
-            </>
-          ),
-        })
-      } else {
+      if (!result?.error) {
         form.reset()
 
         toast({
           title: 'Successfully Register',
           description:
             'You have successfully registered. You can verify with the e-mail sent to the address you entered.',
+        })
+
+        redirect('/')
+      } else {
+        toast({
+          variant: 'destructive',
+          title: 'Registration Failed!',
+          description: 'There was an error during registration.',
         })
       }
     })
@@ -212,7 +206,7 @@ export default function RegisterForm() {
           )}
         />
 
-        <Button type="submit" className="w-full">
+        <Button type="submit" className="w-full flex gap-x-2">
           Get Started
           <div
             className={cn(

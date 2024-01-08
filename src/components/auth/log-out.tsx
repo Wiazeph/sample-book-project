@@ -1,25 +1,47 @@
+// shadcn/ui
+import { useToast } from '@/components/ui/use-toast'
+// shadcn/ui
 import React from 'react'
-import { redirect, useRouter, usePathname } from 'next/navigation'
+import { usePathname, useRouter, redirect } from 'next/navigation'
 import { supabase } from '@/utils/supabase/client'
 
 type Props = {}
 
 const LogOutComponent = (props: Props) => {
-  const router = useRouter()
   const pathname = usePathname()
+  const router = useRouter()
+
+  const { toast } = useToast()
 
   const logOut = async () => {
     const { error } = await supabase.auth.signOut()
 
-    if (error) {
-      return console.log(error)
-    }
+    if (!error) {
+      toast({
+        title: 'Successfully Log Out',
+        description:
+          'You have logged out successfully and you have been directed to the home page.',
+      })
 
-    if (pathname === '/') {
-      return router.refresh()
-    }
+      if (pathname === '/') {
+        return router.refresh()
+      }
 
-    redirect('/')
+      redirect('/')
+    } else {
+      return toast({
+        variant: 'destructive',
+        title: 'Log Out Failed!',
+        description: (
+          <>
+            <div>There was a problem with your logout. Please try again.</div>
+            <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+              <code className="text-white">Error: {error.message}</code>
+            </pre>
+          </>
+        ),
+      })
+    }
   }
 
   return (

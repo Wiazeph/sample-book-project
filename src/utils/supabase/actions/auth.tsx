@@ -19,7 +19,7 @@ export async function RegisterWithEmailAndPassword(values: RegisterValues) {
 
   const result = await supabase.auth.signUp(values)
 
-  return JSON.stringify(result)
+  return result
 }
 
 interface LoginValues {
@@ -32,5 +32,5 @@ export async function LogInWithEmailAndPassword(values: LoginValues) {
 
   const result = await supabase.auth.signInWithPassword(values)
 
-  return JSON.stringify(result)
+  return result
 }
